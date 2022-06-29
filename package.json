@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "NODE_ENV=development webpack --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development webpack --watch --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "NODE_ENV=production webpack --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "postinstall": "npm run production"
+  },
+  "devDependencies": {
+    "@popperjs/core": "^2.11.5",
+    "animejs": "^3.2.1",
+    "autoprefixer": "^10.4.7",
+    "browser-sync": "^2.27.10",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "jquery": "^3.6.0",
+    "jquery-bridget": "^3.0.1",
+    "jquery-selectric": "^0.2.0",
+    "laravel-mix": "^6.0.49",
+    "laravel-mix-polyfill": "^3.0.1",
+    "postcss": "^8.4.14",
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.1",
+    "vue-template-compiler": "^2.6.14"
+  }
+}
