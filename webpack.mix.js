@@ -1,67 +1,37 @@
-require('dotenv').config();
+let mix = require('laravel-mix');
 
-let mix                  = require('laravel-mix');
-let webpack              = require('webpack');
-let path                 = require('path');
-let productionSourceMaps = false;
-
-const domain    = 'airhorny.test';
+const homedir = require('os').homedir();
+const domain    = 'joshuaadrian.test';
 
 mix.setPublicPath('dist');
 mix.setResourceRoot('/');
 
 mix.webpackConfig({
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    })
-  ],
-  watchOptions: {
-    ignored: [
-      path.posix.resolve(__dirname, './node_modules'),
-      path.posix.resolve(__dirname, './css'),
-      path.posix.resolve(__dirname, './js'),
-      path.posix.resolve(__dirname, './images'),
-      path.posix.resolve(__dirname, './fonts'),
-    ],
-  },
-  stats: {
-      children: true,
-  },
+    stats: {
+        children: true,
+    },
 });
 
 mix.autoload({
    jquery : ['$', 'window.$', 'window.jQuery']
 })
-.setPublicPath('dist')
-.js('assets/scripts/app.js', 'dist/scripts')
-.sass('assets/styles/app.scss', 'dist/styles')
+.js('assets/scripts/app.js', 'scripts')
+.sass('assets/styles/app.scss', 'styles')
 .version()
 .browserSync({
-  proxy: {
-    target: 'https://' + domain
-  },
-  host: domain,
-  open: 'external',
-  https: {
-    key: homedir + '/.config/valet/Certificates/' + domain + '.key',
-    cert: homedir + '/.config/valet/Certificates/' + domain + '.crt',
-  },
+  proxy : 'airhorny.test/docs',
   files : [
     '**/*.html',
     'dist/**/*.css',
-    'dist/**/*.js'
-  ],
-  notify: false
+    'assets/**/*.js'
+  ]
 })
-.copyDirectory('assets/images', 'dist/images')
+.copyDirectory('assets/images/', 'dist/images')
+.copyDirectory('assets/fonts/', 'dist/fonts')
+.copyDirectory('assets/sounds/', 'dist/sounds')
 .sourceMaps()
 .options({
   processCssUrls : false,
   purifyCss      : false,
-  uglify         : {},
-  postCss: [
-    require('autoprefixer'),
-  ]
+  uglify         : {}
 });
