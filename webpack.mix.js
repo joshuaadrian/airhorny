@@ -60,9 +60,9 @@ mix.autoload({
   ],
   notify: false
 })
-.copyDirectory('assets/images/', 'dist/images')
-.copyDirectory('assets/fonts/', 'dist/fonts')
-.copyDirectory('assets/sounds/', 'dist/sounds')
+.copyDirectory('assets/images', 'dist/images')
+.copyDirectory('assets/fonts', 'dist/fonts')
+.copyDirectory('assets/sounds', 'dist/sounds')
 // .copy('assets/scripts/flickity.js', 'dist/scripts/flickity.js')
 .sourceMaps()
 .options({
