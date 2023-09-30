@@ -5,15 +5,10 @@ let webpack              = require('webpack');
 let path                 = require('path');
 let productionSourceMaps = false;
 
-const themename = 'airhorny';
 const domain    = 'airhorny.test';
-const homedir   = require('os').homedir();
 
-// mix.setPublicPath('dist');
-// mix.setResourceRoot(`dist/`);
-
-// mix.setResourceRoot('./');
-// mix.setPublicPath(path.resolve('./'));
+mix.setPublicPath('dist');
+mix.setResourceRoot('/');
 
 mix.webpackConfig({
   plugins: [
@@ -27,7 +22,8 @@ mix.webpackConfig({
       path.posix.resolve(__dirname, './node_modules'),
       path.posix.resolve(__dirname, './css'),
       path.posix.resolve(__dirname, './js'),
-      path.posix.resolve(__dirname, './images')
+      path.posix.resolve(__dirname, './images'),
+      path.posix.resolve(__dirname, './fonts'),
     ],
   },
   stats: {
@@ -60,7 +56,6 @@ mix.autoload({
   notify: false
 })
 .copyDirectory('assets/images', 'dist/images')
-.copyDirectory('assets/sounds', 'dist/sounds')
 .sourceMaps()
 .options({
   processCssUrls : false,
