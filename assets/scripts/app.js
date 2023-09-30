@@ -28,15 +28,15 @@ const {Howl, Howler} = require('howler');
 var sounds = {};
 
 sounds.penis = new Howl({
-  src: ['/docs/dist/sounds/air-horn-4.mp3']
+  src: ['./dist/sounds/air-horn-4.mp3']
 });
 
 sounds.butt = new Howl({
-  src: ['/docs/dist/sounds/air-horn-5.mp3']
+  src: ['./dist/sounds/air-horn-5.mp3']
 });
 
 sounds.boobs = new Howl({
-  src: ['/docs/dist/sounds/air-horn-6.mp3']
+  src: ['./dist/sounds/air-horn-6.mp3']
 });
 
 var button = document.querySelector('.button');
