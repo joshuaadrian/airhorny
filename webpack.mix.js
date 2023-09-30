@@ -32,7 +32,6 @@ mix.autoload({
   ]
 })
 .copyDirectory('assets/images/', 'dist/images')
-.copyDirectory('assets/fonts/', 'dist/fonts')
 .copyDirectory('assets/sounds/', 'dist/sounds')
 .sourceMaps()
 .options({
