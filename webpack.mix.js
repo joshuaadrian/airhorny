@@ -10,9 +10,9 @@ const domain    = 'airhorny.test';
 const homedir   = require('os').homedir();
 
 mix.setPublicPath('dist');
-mix.setResourceRoot(`/wp-content/themes/${themename}/dist/`);
+mix.setResourceRoot(`dist/`);
 
-mix.setResourceRoot('../');
+mix.setResourceRoot('./');
 mix.setPublicPath(path.resolve('./'));
 
 mix.webpackConfig({
