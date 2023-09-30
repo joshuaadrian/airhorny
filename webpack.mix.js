@@ -4,13 +4,8 @@ let mix                  = require('laravel-mix');
 let path                 = require('path');
 let productionSourceMaps = false;
 
-const themename = 'evercore-investment';
-const domain    = 'evercore-investment.test';
+const themename = 'airhorny';
 const homedir   = require('os').homedir();
-
-mix.setPublicPath('dist');
-
-const homedir = require('os').homedir();
 const domain    = 'airhorny.test';
 
 mix.setPublicPath('dist');
