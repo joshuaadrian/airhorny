@@ -9,7 +9,7 @@ const homedir   = require('os').homedir();
 const domain    = 'airhorny.test';
 
 mix.setPublicPath('dist');
-mix.setResourceRoot('dist');
+mix.setResourceRoot('');
 
 mix.webpackConfig({
     stats: {
