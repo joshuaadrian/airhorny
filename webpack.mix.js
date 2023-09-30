@@ -1,40 +1,75 @@
-let mix = require('laravel-mix');
+require('dotenv').config();
 
-require('laravel-mix-polyfill');
+let mix                  = require('laravel-mix');
+let webpack              = require('webpack');
+let path                 = require('path');
+let productionSourceMaps = false;
 
-mix.setPublicPath('docs/dist');
-mix.setResourceRoot('/docs/dist/');
+const themename = 'airhorny';
+const domain    = 'airhorny.test';
+const homedir   = require('os').homedir();
+
+mix.setPublicPath('dist');
+mix.setResourceRoot(`/wp-content/themes/${themename}/dist/`);
+
+mix.setResourceRoot('../');
+mix.setPublicPath(path.resolve('./'));
 
 mix.webpackConfig({
-    stats: {
-        children: true,
-    },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+  ],
+  watchOptions: {
+    ignored: [
+      path.posix.resolve(__dirname, './node_modules'),
+      path.posix.resolve(__dirname, './css'),
+      path.posix.resolve(__dirname, './js'),
+      path.posix.resolve(__dirname, './images'),
+      path.posix.resolve(__dirname, './fonts'),
+    ],
+  },
+  stats: {
+      children: true,
+  },
 });
 
 mix.autoload({
    jquery : ['$', 'window.$', 'window.jQuery']
 })
-.js('assets/scripts/app.js', 'scripts')
-.sass('assets/styles/app.scss', 'styles')
-.polyfill({
-  enabled     : true,
-  useBuiltIns : "usage",
-  targets     : "firefox 50, IE 11"
-})
+.setPublicPath('dist')
+.js('assets/scripts/app.js', 'dist/scripts')
+.sass('assets/styles/app.scss', 'dist/styles')
 .version()
 .browserSync({
-  proxy : 'airhorny.test/docs',
+  proxy: {
+    target: 'https://' + domain
+  },
+  host: domain,
+  open: 'external',
+  https: {
+    key: homedir + '/.config/valet/Certificates/' + domain + '.key',
+    cert: homedir + '/.config/valet/Certificates/' + domain + '.crt',
+  },
   files : [
-    '**/*.html',
+    '**/*.php',
     'dist/**/*.css',
-    'assets/**/*.js'
-  ]
+    'dist/**/*.js'
+  ],
+  notify: false
 })
-.copyDirectory('assets/images/', 'docs/dist/images')
-.copyDirectory('assets/fonts/', 'docs/dist/fonts')
+.copyDirectory('assets/images/', 'dist/images')
+.copyDirectory('assets/fonts/', 'dist/fonts')
+.copyDirectory('assets/sounds/', 'dist/sounds')
+// .copy('assets/scripts/flickity.js', 'dist/scripts/flickity.js')
 .sourceMaps()
 .options({
   processCssUrls : false,
   purifyCss      : false,
-  uglify         : {}
+  uglify         : {},
+  postCss: [
+    require('autoprefixer'),
+  ]
 });
