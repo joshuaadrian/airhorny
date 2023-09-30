@@ -1,7 +1,7 @@
 let mix = require('laravel-mix');
 
 const homedir = require('os').homedir();
-const domain    = 'joshuaadrian.test';
+const domain    = 'airhorny.test';
 
 mix.setPublicPath('dist');
 mix.setResourceRoot('/');
@@ -19,7 +19,7 @@ mix.autoload({
 .sass('assets/styles/app.scss', 'styles')
 .version()
 .browserSync({
-  proxy : 'airhorny.test/docs',
+  proxy : 'airhorny.test',
   files : [
     '**/*.html',
     'dist/**/*.css',
