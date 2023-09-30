@@ -8,8 +8,8 @@ const themename = 'airhorny';
 const homedir   = require('os').homedir();
 const domain    = 'airhorny.test';
 
-mix.setPublicPath('/dist');
-mix.setResourceRoot('/dist');
+mix.setPublicPath('dist');
+mix.setResourceRoot('dist');
 
 mix.webpackConfig({
     stats: {
