@@ -5,20 +5,33 @@
 
   	<meta charset="utf-8">
   	<meta http-equiv="x-ua-compatible" content="ie=edge">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   	<title>Airhorny</title>
+    <meta name="description" content="The web air horn soundboard. Tap the button and honk.">
+    <meta name="theme-color" content="#111111">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Airhorny">
     <meta name='robots' content='max-image-preview:large' />
-    <link rel='dns-prefetch' href='//s.w.org' />
-    <link rel='stylesheet' id='app/css-css'  href='./dist/styles/app.css' type='text/css' media='all' />
-    <link rel="canonical" href="http://airhorny.test/" />
-    <link rel='shortlink' href='http://airhorny.test/' />
 
-    <link rel="icon" href="./dist/images/Favicon.png" sizes="32x32" />
-    <link rel="icon" href="./dist/images/Favicon.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="./dist/images/Favicon.png" />
-    <meta name="msapplication-TileImage" content="./dist/images/Favicon.png" />
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://airhorny.com/" />
+    <link rel='stylesheet' href='./dist/styles/app.css' type='text/css' media='all' />
 
+    <link rel="icon" href="./dist/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="./dist/images/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="./dist/images/icon-192.png">
+
+    <meta property="og:title" content="Airhorny">
+    <meta property="og:description" content="The web air horn soundboard. Tap the button and honk.">
+    <meta property="og:url" content="https://airhorny.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://airhorny.com/dist/images/icon-512.png">
+
+    <link rel="preload" href="./dist/sounds/air-horn-4.mp3" as="fetch" crossorigin>
+    <link rel="preload" href="./dist/sounds/air-horn-5.mp3" as="fetch" crossorigin>
+    <link rel="preload" href="./dist/sounds/air-horn-6.mp3" as="fetch" crossorigin>
 
   </head>
 
@@ -26,7 +39,7 @@
 
     <img src="./dist/images/logo.svg" alt="Airhorny.com" id="logo" class="logo">
     <button type="button" id="button" class="button" aria-label="Play air horn"></button>
-    <div class="airhorns">
+    <div class="airhorns" role="radiogroup" aria-label="Choose air horn sound">
       <label for="airhorn--penis">
         <input type="radio" value="penis" name="airhorn" id="airhorn--penis" checked="checked">
         <span>Penis</span>
@@ -41,8 +54,8 @@
       </label>
     </div>
 
-  </body>
+    <script src="./dist/scripts/app.js"></script>
 
-  <script type='text/javascript' src='./dist/scripts/app.js' id='app/js'></script>
+  </body>
 
 </html>

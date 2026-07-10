@@ -48,11 +48,20 @@ Object.keys(SOUND_PATHS).forEach(function (key) {
   });
 });
 
+function triggerHonkFeedback() {
+  button.classList.add('is-honking');
+
+  window.setTimeout(function () {
+    button.classList.remove('is-honking');
+  }, 150);
+}
+
 function playSelectedSound() {
   var selected = document.querySelector('input[name="airhorn"]:checked').value;
 
   unlockAudio().then(function () {
     sounds[selected].play();
+    triggerHonkFeedback();
   });
 }
 
@@ -71,3 +80,23 @@ button.addEventListener('click', function (event) {
     playSelectedSound();
   }
 });
+
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState !== 'visible') {
+    return;
+  }
+
+  audioUnlocked = false;
+
+  if (Howler.ctx && Howler.ctx.state === 'suspended') {
+    unlockAudio();
+  }
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function (error) {
+      console.error('Service worker registration failed:', error);
+    });
+  });
+}
