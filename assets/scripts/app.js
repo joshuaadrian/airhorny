@@ -1,64 +1,73 @@
-const {Howl, Howler} = require('howler');
+const { Howl, Howler } = require('howler');
 
-// window.onload = init;
-// var context;
-// var bufferLoader;
-//
-// function init() {
-//
-//   context = new AudioContext();
-//
-//   bufferLoader = new BufferLoader(
-//     context,
-//     [
-//         '../sounds/air-horn-1.mp3',
-//         '../sounds/air-horn-2.mp3',
-//         '../sounds/air-horn-3.mp3',
-//         '../sounds/air-horn-4.mp3',
-//         '../sounds/air-horn-5.mp3',
-//         '../sounds/air-horn-6.mp3',
-//         '../sounds/air-horn-7.mp3',
-//     ],
-//     finishedLoading
-//   );
-//
-//   bufferLoader.load();
-//
-// }
-var sounds = {};
+const SOUND_PATHS = {
+  penis: '/dist/sounds/air-horn-4.mp3',
+  butt: '/dist/sounds/air-horn-5.mp3',
+  boobs: '/dist/sounds/air-horn-6.mp3',
+};
 
-sounds.penis = new Howl({
-  src: ['./dist/sounds/air-horn-4.mp3']
+const sounds = {};
+let audioUnlocked = false;
+
+function unlockAudio() {
+  if (audioUnlocked) {
+    return Promise.resolve();
+  }
+
+  if (Howler.ctx && Howler.ctx.state === 'suspended') {
+    return Howler.ctx.resume().then(function () {
+      audioUnlocked = true;
+    });
+  }
+
+  audioUnlocked = true;
+  return Promise.resolve();
+}
+
+Object.keys(SOUND_PATHS).forEach(function (key) {
+  var path = SOUND_PATHS[key];
+
+  sounds[key] = new Howl({
+    src: [path],
+    preload: true,
+    html5: false,
+    onloaderror: function (_id, error) {
+      console.error('Failed to load sound:', path, error);
+    },
+    onplayerror: function (soundId) {
+      var howl = this;
+
+      howl.once('unlock', function () {
+        howl.play(soundId);
+      });
+
+      if (Howler.ctx) {
+        Howler.ctx.resume();
+      }
+    },
+  });
 });
 
-sounds.butt = new Howl({
-  src: ['./dist/sounds/air-horn-5.mp3']
-});
+function playSelectedSound() {
+  var selected = document.querySelector('input[name="airhorn"]:checked').value;
 
-sounds.boobs = new Howl({
-  src: ['./dist/sounds/air-horn-6.mp3']
-});
+  unlockAudio().then(function () {
+    sounds[selected].play();
+  });
+}
 
 var button = document.querySelector('.button');
-var curSound;
-var prevSound;
+
+button.addEventListener('pointerdown', function (event) {
+  event.preventDefault();
+  playSelectedSound();
+});
 
 button.addEventListener('click', function (event) {
+  event.preventDefault();
 
-	// If the clicked element doesn't have the right selector, bail
-	//if (!event.target.matches('.click-me')) return;
-  var airhornSelected = document.querySelector('input[name="airhorn"]:checked').value;
-
-	// Don't follow the link
-	event.preventDefault();
-
-	// Log the clicked element in the console
-	// console.log(event.target);
-  // console.log(airhornSelected);
-
-  //sounds[airhornSelected].fade(1, 0, 300, prevSound);
-  prevSound = sounds[airhornSelected].play();
-
-  //console.log(prevSound);
-
-}, false);
+  // Keyboard activation (Space/Enter) fires click without pointerdown.
+  if (event.detail === 0) {
+    playSelectedSound();
+  }
+});
