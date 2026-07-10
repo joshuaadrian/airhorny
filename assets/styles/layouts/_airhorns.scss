@@ -1,11 +1,11 @@
 .airhorns {
+  display: none;
   position: absolute;
   top:0;
   left:0;
   right:0;
   height:55px;
   background:#111;
-  display: flex;
   flex-flow:row nowrap;
   justify-content: center;
   gap:15px;

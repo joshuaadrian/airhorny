@@ -1,19 +1,19 @@
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = 'airhorny-' + CACHE_VERSION;
 
 const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/dist/styles/app.css',
-  '/dist/scripts/app.js',
-  '/dist/images/logo.svg',
+  '/dist/styles/app.css?id=62f98c29f83b3fcb8297d2031dcadaa5',
+  '/dist/scripts/app.js?id=a89793ef7a6f0262ec1a4a1075f19239',
+  '/dist/images/logo.svg?id=fdf37dba4f61d747daf759975dedce3a',
   '/dist/images/favicon.svg',
   '/dist/images/icon-192.png',
   '/dist/images/icon-512.png',
-  '/dist/sounds/air-horn-4.mp3',
-  '/dist/sounds/air-horn-5.mp3',
-  '/dist/sounds/air-horn-6.mp3',
+  '/dist/sounds/air-horn-4.mp3?id=40430727aebdbd88e25f551ae23aed34',
+  '/dist/sounds/air-horn-5.mp3?id=59668c9a2a4ca665349cb1104066e5fc',
+  '/dist/sounds/air-horn-6.mp3?id=2af33471bac4e1b506076ba8b3ee089e',
 ];
 
 self.addEventListener('install', function (event) {
@@ -68,20 +68,22 @@ self.addEventListener('fetch', function (event) {
 
   event.respondWith(
     caches.match(event.request).then(function (cached) {
-      return (
-        cached ||
-        fetch(event.request).then(function (response) {
+      return fetch(event.request)
+        .then(function (response) {
           if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
+            return cached || response;
           }
 
           var copy = response.clone();
           caches.open(CACHE_NAME).then(function (cache) {
             cache.put(event.request, copy);
           });
+
           return response;
         })
-      );
+        .catch(function () {
+          return cached;
+        });
     })
   );
 });
