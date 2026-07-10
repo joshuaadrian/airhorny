@@ -1,19 +1,19 @@
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = 'airhorny-' + CACHE_VERSION;
 
 const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/dist/styles/app.css?id=62f98c29f83b3fcb8297d2031dcadaa5',
-  '/dist/scripts/app.js?id=a89793ef7a6f0262ec1a4a1075f19239',
+  '/dist/styles/app.css?id=49e05a82cb5f35d27c12e01ac8a2b796',
+  '/dist/scripts/app.js?id=1ae9b90656088ec2b68f9731f5cad9d2',
   '/dist/images/logo.svg?id=fdf37dba4f61d747daf759975dedce3a',
   '/dist/images/favicon.svg',
   '/dist/images/icon-192.png',
   '/dist/images/icon-512.png',
-  '/dist/sounds/air-horn-4.mp3?id=40430727aebdbd88e25f551ae23aed34',
-  '/dist/sounds/air-horn-5.mp3?id=59668c9a2a4ca665349cb1104066e5fc',
-  '/dist/sounds/air-horn-6.mp3?id=2af33471bac4e1b506076ba8b3ee089e',
+  '/dist/sounds/air-horn-4.mp3?id=c999f6db24cb67df27413e422512d50e',
+  '/dist/sounds/air-horn-5.mp3?id=e3adc5a9e2c74b231b46728e6502b87a',
+  '/dist/sounds/air-horn-6.mp3?id=dd319f91a68164a45d94a7ad609ead5a',
 ];
 
 self.addEventListener('install', function (event) {
