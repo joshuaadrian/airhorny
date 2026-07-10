@@ -17,10 +17,7 @@ mix.webpackConfig({
     },
 });
 
-mix.autoload({
-   jquery : ['$', 'window.$', 'window.jQuery']
-})
-.js('assets/scripts/app.js', 'dist/scripts')
+mix.js('assets/scripts/app.js', 'dist/scripts')
 .sass('assets/styles/app.scss', 'dist/styles')
 .version()
 .browserSync({
