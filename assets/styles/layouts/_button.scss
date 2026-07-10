@@ -2,6 +2,9 @@
 .button {
   position: absolute;
   display: block;
+  border: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   text-align: center;
   font: 2.5em/1em Arial, sans-serif;
   color: #ffe5e5;
